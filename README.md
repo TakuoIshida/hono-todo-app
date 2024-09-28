@@ -2,7 +2,7 @@
 honoで作るTODO管理アプリ
 
 # Topic
-- honoのtrpc
+- honoのtrpc(hono/client)
 - router
 - prisma
 - @hono/zod-validator
