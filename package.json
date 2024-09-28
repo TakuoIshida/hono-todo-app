@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.1",
+    "dotenv": "^16.4.5",
     "hono": "^4.6.3",
     "kysely": "^0.27.4",
     "mysql2": "^3.11.3"
