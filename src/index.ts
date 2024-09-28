@@ -7,6 +7,7 @@ import { config } from "dotenv";
 import { createPool } from "mysql2";
 import { z } from "zod";
 import { ulid } from "ulid";
+import { ok } from "assert";
 config();
 
 const dialect = new MysqlDialect({
@@ -27,10 +28,18 @@ export const db = new Kysely<DB>({
 const app = new Hono();
 
 app.get("/", async (c) => {
-  const result = await db.selectFrom("users").selectAll().execute();
-  console.log("result", result);
   return c.text("Hello Hono!");
 });
+
+app.get("/users", async (c) => {
+  const result = await db.selectFrom("users").selectAll().execute();
+  console.log("result", result);
+  return c.json({
+    status: 200,
+    data: result,
+  });
+});
+
 const schema = z.object({
   name: z.string().min(3).max(255),
   email: z.string().email(),
@@ -38,9 +47,8 @@ const schema = z.object({
 
 app.post("/users", zValidator("json", schema), async (c) => {
   const data = c.req.valid("json");
-  console.log(data);
   const newId = ulid();
-  const newUser = await db
+  await db
     .insertInto("users")
     .values({
       id: newId,
@@ -49,10 +57,8 @@ app.post("/users", zValidator("json", schema), async (c) => {
     })
     .execute();
 
-  console.log("newUser", newUser);
   return c.json({
     status: 201,
-    success: true,
     message: `user: ${data.name} is created`,
   });
 });
@@ -64,3 +70,5 @@ serve({
   fetch: app.fetch,
   port,
 });
+
+export type AppType = typeof app;
