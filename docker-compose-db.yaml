@@ -7,9 +7,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ./docker/todo-app-db/volumes:/var/lib/mysql
+      - ./docker/todo-app-db/init:/docker-entrypoint-initdb.d
     environment:
       MYSQL_DATABASE: todo_app_db
-      MYSQL_USER: todo_app-db_user
+      MYSQL_USER: todo_app_user
       MYSQL_PASSWORD: user_password_abc
       MYSQL_ROOT_PASSWORD: root_password_xyz
       TZ: Asia/Tokyo
