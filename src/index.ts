@@ -7,7 +7,7 @@ import { config } from "dotenv";
 import { createPool } from "mysql2";
 import { z } from "zod";
 import { ulid } from "ulid";
-import { ok } from "assert";
+
 config();
 
 const dialect = new MysqlDialect({
@@ -23,6 +23,16 @@ const dialect = new MysqlDialect({
 
 export const db = new Kysely<DB>({
   dialect,
+  log: (event) => {
+    // local開発時は実行されたSQLをはく。event.level: "query" | "error"
+    if (event.level == "query") {
+      const q = event.query;
+      const time = Math.round(event.queryDurationMillis * 100) / 100;
+      console.log(
+        `\u001b[34mkysely:sql\u001b[0m [${q.sql}] parameters: [${q.parameters}] time: ${time}`
+      );
+    }
+  },
 });
 
 const app = new Hono();
@@ -48,14 +58,16 @@ const schema = z.object({
 app.post("/users", zValidator("json", schema), async (c) => {
   const data = c.req.valid("json");
   const newId = ulid();
-  await db
-    .insertInto("users")
-    .values({
-      id: newId,
-      name: data.name,
-      email: data.email,
-    })
-    .execute();
+  await db.transaction().execute(async () => {
+    await db
+      .insertInto("users")
+      .values({
+        id: newId,
+        name: data.name,
+        email: data.email,
+      })
+      .execute();
+  });
 
   return c.json({
     status: 201,
