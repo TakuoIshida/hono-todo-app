@@ -9,4 +9,4 @@ run:
 
 
 code-gen:
-	yarn kysely-codegen --out-file src/database/types.ts
+	yarn kysely-codegen --out-file src/infrastructure/database/types.ts
