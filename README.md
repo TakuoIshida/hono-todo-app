@@ -1,9 +1,8 @@
-# hono-todo-app
-honoで作るTODO管理アプリ
+```
+npm install
+npm run dev
+```
 
-# Topic
-- honoのtrpc(hono/client)
-- router
-- prisma
-- @hono/zod-validator
-- (authentication)
+```
+open http://localhost:3000
+```
