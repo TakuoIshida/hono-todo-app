@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  hono-todo-app-db:
+    image: mysql:8.0.29
+    container_name: database.todo.internal
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./docker/todo-app-db/volumes:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: todo_app_db
+      MYSQL_USER: todo_app-db_user
+      MYSQL_PASSWORD: user_password_abc
+      MYSQL_ROOT_PASSWORD: root_password_xyz
+      TZ: Asia/Tokyo
+    tty: true
+    restart: always
+    user: 1000:1000
+    ports:
+      - "7306:3306"
+    networks:
+      - todo_app_nw
+networks:
+  todo_app_nw:
+    external: true
