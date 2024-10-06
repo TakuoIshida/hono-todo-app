@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { prettyJSON } from "hono/pretty-json";
 import { handle } from "hono/vercel";
+import { env } from "hono/adapter";
 
 const app = new Hono().basePath("/api");
 app.use(prettyJSON());
@@ -29,6 +30,8 @@ const helloRouters = app
     }
   )
   .get("/hello", async (c) => {
+    const { DATABASE_URL } = env<{ DATABASE_URL: string }>(c);
+    console.log("DATABASE_URL", DATABASE_URL);
     return c.json({
       status: 201,
       message: `hello hono! from server `,
