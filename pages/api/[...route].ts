@@ -30,7 +30,7 @@ const helloRouters = app
     }
   )
   .get("/hello", async (c) => {
-    const { DATABASE_URL } = env<{ DATABASE_URL: string }>(c);
+    const { DATABASE_URL } = env<{ DATABASE_URL: string }>(c); // string || undefined
     console.log("DATABASE_URL", DATABASE_URL);
     return c.json({
       status: 201,
