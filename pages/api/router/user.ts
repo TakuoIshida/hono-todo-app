@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { ulid } from "ulid";
-import { db } from "../infrastructure/database/client";
+import { db } from "../database/client";
 
 const userRouter = new Hono();
 

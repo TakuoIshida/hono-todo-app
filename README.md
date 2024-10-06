@@ -1,8 +1,23 @@
-```
-npm install
-npm run dev
-```
+# Hono Stack with Next.js
+
+* Next.js
+* Hono
+* Zod
+* Zod Validator Middleware
+* `hc`
+* SWR
+
+## Usage
 
 ```
-open http://localhost:3000
+yarn
+yarn dev
 ```
+
+## Author
+
+Yusuke Wada <https://github.com/yusukebe>
+
+## License
+
+MIT
