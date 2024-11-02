@@ -5,4 +5,5 @@ build-db:
 	docker-compose -f docker-compose-db.yaml up -d
 
 code-gen:
-	npm ci kysely-codegen --out-file server/database/types.ts
+	npm i kysely-codegen
+	npx kysely-codegen --out-file server/database/types.ts
