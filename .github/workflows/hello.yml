@@ -9,10 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Hello world
-      run: echo Hello, world!
-
-    - name: Super-linter
-      uses: super-linter/super-linter@v7.2.1 # x-release-please-version
       env:
-        # To report GitHub Actions status checks
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        HELLO: ${{ vars.HELLO }}
+        HELLO_SECRET: ${{ secrets.HELLO_SECRET }}
+      run: echo Hello, world! "$HELLO" "$HELLO_SECRET"
