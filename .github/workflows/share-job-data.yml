@@ -39,5 +39,5 @@ jobs:
           BEFORE: ${{ needs.before.outputs.result }}
           NOW: ${{ needs.now.outputs.result }}
         run: |
-          echo "echo before=${ BEFORE }"
-          echo "echo now=${ NOW}"
+          echo "echo before=${{ env.BEFORE }}"
+          echo "echo now=${{ env.NOW }}"
