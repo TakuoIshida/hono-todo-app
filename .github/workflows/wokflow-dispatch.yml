@@ -1,0 +1,27 @@
+name: workflow-dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      environment-name:
+        type: environment
+        default: test
+        required: false
+        description: 'The environment to deploy to'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  print-env:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment-name }}
+    env:
+      ENVIRONMENT_NAME: ${{ inputs.environment-name }}
+      USER_NAME: ${{ vars.HOGE }}
+    steps:
+    - name: print env vars
+      run: |
+        echo "echo ENVIRONMENT_NAME=${{ env.ENVIRONMENT_NAME }}"
+        echo "echo USER_NAME=${{ env.USER_NAME }}"
+  
