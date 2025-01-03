@@ -17,12 +17,12 @@ jobs:
   first:
     runs-on: ubuntu-latest
     steps:
-      - run : sleep && echo "first job"
+      - run : sleep 5 && echo "first job"
   second:
     runs-on: ubuntu-latest
     steps:
-      - run : sleep && echo "second job"
+      - run : sleep 10 && echo "second job"
   third:
     runs-on: ubuntu-latest
     steps:
-      - run : sleep && echo "third job"
+      - run : sleep 20 && echo "third job"
