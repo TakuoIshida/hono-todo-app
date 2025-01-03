@@ -1,0 +1,28 @@
+name: parallel
+on: 
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+    working-directory: pages
+
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+      - run : sleep && echo "first job"
+  second:
+    runs-on: ubuntu-latest
+    steps:
+      - run : sleep && echo "second job"
+  third:
+    runs-on: ubuntu-latest
+    steps:
+      - run : sleep && echo "third job"
