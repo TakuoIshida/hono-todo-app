@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: before-steps
         id: before
-        run : echo "echo result=Hello, world!" >> "$GITHUB_OUTPUT"
+        run : echo "result=Hello, world!" >> "$GITHUB_OUTPUT"
     outputs:
       result: ${{ steps.before.outputs.result }}
   now:
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: now-steps
         id: now
-        run : echo "echo result=This is a pen." >> "$GITHUB_OUTPUT"
+        run : echo "result=This is a pen." >> "$GITHUB_OUTPUT"
     outputs:
       result: ${{ steps.now.outputs.result }}
   after:
